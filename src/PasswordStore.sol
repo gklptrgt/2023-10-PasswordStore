@@ -11,6 +11,8 @@ contract PasswordStore {
     error PasswordStore__NotOwner();
 
     address private s_owner;
+
+    // @audit the s_password is not private. Can acess publicly.
     string private s_password;
 
     event SetNetPassword();
@@ -32,6 +34,7 @@ contract PasswordStore {
 
     /*
      * @notice This allows only the owner to retrieve the password.
+     // @audit no paramater in the function.
      * @param newPassword The new password to set.
      */
     function getPassword() external view returns (string memory) {
