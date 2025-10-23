@@ -23,6 +23,8 @@ contract PasswordStore {
      * @notice This function allows only the owner to set a new password.
      * @param newPassword The new password to set.
      */
+    // q doesn't check if sender is owner?
+    // @audit any user can set password - missing access control.
     function setPassword(string memory newPassword) external {
         s_password = newPassword;
         emit SetNetPassword();
