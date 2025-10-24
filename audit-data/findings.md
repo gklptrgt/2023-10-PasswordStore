@@ -1,4 +1,4 @@
-### [S-#] Storing the password on-chain makes it visible to anyone, no longer private.
+### [H-1] Storing the password on-chain makes it visible to anyone, no longer private.
 
 **Description:** All data stored on-chain is visible to anyone, and can be directly read from the blockchain. The `PasswordStore::s_password` variable is intended to be a private variable and only accessed via the `PasswordStore::getPassword` function, which is intended to be only called by the owner.
 
@@ -36,7 +36,9 @@ and you will get the output:
 **Recommended Mitigation:** Due to this, the overall architecture of the contract should be rethought. One could encrypt the password off-chain, and then store the encrypted password on-chain. This would require the user to remember another password off-chain to decrypt the password. However, you'd also likely want to remove the view function as you wouldn't want the user to accidentally send a transaction with the password that decrypts you password.
 
 
-### [S-#] `PasswordStore::setPassword` has no access control, anyone can change owners password.
+
+
+### [H-2] `PasswordStore::setPassword` has no access control, anyone can change owners password.
 
 **Description:** The `PasswordStore::setPassword` is set to be an external password. But this function should allow only the owner to set a new password.
 
@@ -60,4 +62,29 @@ and you will get the output:
 ```
 </details>
 
-**Recommended Mitigation:** 
+**Recommended Mitigation:** Add an access control conditional to the `setPassword` function.
+```javascript
+if (msg.sender != s_owner) {
+    revert PasswordStore__NotOwner();
+} 
+```
+
+
+### [I-1] The `PasswordStore::getPassword` NatSpec indicates a parameter that does not exist, causing the natspec to be incorrect.
+
+**Description:** The `PasswordStore::getPassword` function signature is `getPassword()` while the natspec says it should be `getPassword(string)`.
+```js
+    /*
+     * @notice This allows only the owner to retrieve the password.
+ >>  * @param newPassword The new password to set.  <<
+     */
+    function getPassword() external view returns (string memory) {
+```
+
+**Impact:** NatSpec is incorrect.
+
+**Recommended Mitigation:** Remove the incorrect natspec line.
+
+```diff
+-  * @param newPassword The new password to set.
+```
