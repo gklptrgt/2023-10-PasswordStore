@@ -1,18 +1,21 @@
 # First Flight #1: PasswordStore
 
-- [Contest Details](#contest-details)
+- [First Flight #1: PasswordStore](#first-flight-1-passwordstore)
+  - [Contest Details](#contest-details)
   - [Stats](#stats)
-- [Getting Started](#getting-started)
+  - [About](#about)
+  - [Roles](#roles)
+  - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
     - [Optional Gitpod](#optional-gitpod)
-- [Usage](#usage)
-  - [Deploy (local)](#deploy-local)
+  - [Usage](#usage)
+    - [Deploy (local)](#deploy-local)
   - [Testing](#testing)
     - [Test Coverage](#test-coverage)
+  - [Scope](#scope)
   - [Compatibilities](#compatibilities)
-- [Roles](#roles)
-- [Known Issues](#known-issues)
+  - [Known Issues](#known-issues)
 
 [//]: # (contest-details-open)
 
@@ -39,7 +42,8 @@ PasswordStore is a smart contract application for storing a password. Users shou
 
 ## Roles
 
-Owner - Only the owner may set and retrieve their password
+Owner - Only the owner may set and retrieve their password.
+Outsides - No one else should be able to set or read the password.
 
 [//]: # (contest-details-close)
 
